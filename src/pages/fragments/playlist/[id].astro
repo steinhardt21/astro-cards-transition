@@ -1,5 +1,6 @@
 ---
 import BackgroundVideo from '../../../components/BackgroundVideo.astro';
+import CardStats from '../../../components/CardStats.astro';
 import FloatingSquares from '../../../components/FloatingSquares.astro';
 import PlaylistHeader from '../../../components/PlaylistHeader.astro';
 import data from '../../../data.json';
@@ -15,6 +16,7 @@ export interface Props {}
 interface Playlist {
   id: string;
   title: string;
+  description: string;
   user: {
     name: string;
     date: string;
@@ -40,8 +42,8 @@ const playlist: Playlist =
 
 const {
   title,
-  // description,
-  // stats,
+  description,
+  stats,
   user,
   backgroundColor,
   backgroundImage,
@@ -73,6 +75,8 @@ const {
     }
     <PlaylistHeader {...user} />
     <h1 class="playlist-title">{title}</h1>
+    <CardStats {...stats} />
+    <p class="playlist-description">{description}</p>
   </header>
 </main>
 
