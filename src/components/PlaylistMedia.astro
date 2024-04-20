@@ -1,0 +1,62 @@
+---
+import PlayerControl from './PlayerControl.astro';
+
+export interface Props {
+  title: string;
+  media: {
+    type: string;
+    url: string;
+  };
+}
+
+const { title, media } = Astro.props;
+---
+
+<div class="playlist-media">
+  {
+    media.type === 'image' ? (
+      <img src={media.url} alt={title} class="playlist-image" />
+    ) : (
+      <div data-persist-container="true">
+        <video
+          loop
+          muted
+          autoplay
+          playsinline
+          class="playlist-image"
+          data-persist="true"
+        >
+          <source src={media.url} type="video/mp4" />
+        </video>
+      </div>
+    )
+  }
+  <PlayerControl showExtraButtons={true} />
+</div>
+
+<style is:inline>
+  .playlist-media {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .playlist-media img {
+    display: block;
+    max-height: 480px;
+    z-index: 1;
+  }
+
+  .playlist-media .card-media-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to top, var(--backgroundColor), transparent);
+    border-radius: 2rem;
+    z-index: 2;
+  }
+</style>
