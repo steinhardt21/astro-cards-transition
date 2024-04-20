@@ -34,12 +34,11 @@ interface Playlist {
   };
 }
 
-const playlist: Playlist = data.find(
-  (playlist) => playlist.id === Astro.params.id || data[0]
-)!;
+const playlist: Playlist =
+  data.find((playlist) => playlist.id === Astro.params.id) || data[0];
 
 const {
-  // title,
+  title,
   // description,
   // stats,
   // user,
@@ -71,8 +70,8 @@ const {
         <div class="solid-background playlist-background" />
       )
     }
+    <h1 class="playlist-title">{title}</h1>
   </header>
-  xiao
 </main>
 
 <style is:inline>
