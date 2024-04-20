@@ -1,6 +1,7 @@
 ---
 import BackgroundVideo from '../../../components/BackgroundVideo.astro';
 import FloatingSquares from '../../../components/FloatingSquares.astro';
+import PlaylistHeader from '../../../components/PlaylistHeader.astro';
 import data from '../../../data.json';
 
 export function getStaticPaths() {
@@ -41,7 +42,7 @@ const {
   title,
   // description,
   // stats,
-  // user,
+  user,
   backgroundColor,
   backgroundImage,
   backgroundAnimation,
@@ -70,6 +71,7 @@ const {
         <div class="solid-background playlist-background" />
       )
     }
+    <PlaylistHeader {...user} />
     <h1 class="playlist-title">{title}</h1>
   </header>
 </main>
