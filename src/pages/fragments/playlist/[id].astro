@@ -1,0 +1,121 @@
+---
+import BackgroundVideo from '../../../components/BackgroundVideo.astro';
+import FloatingSquares from '../../../components/FloatingSquares.astro';
+import data from '../../../data.json';
+
+export function getStaticPaths() {
+  return data.map((playlist) => ({
+    params: { id: playlist.id },
+  }));
+}
+
+export interface Props {}
+
+interface Playlist {
+  id: string;
+  title: string;
+  user: {
+    name: string;
+    date: string;
+    avatar: string;
+  };
+  stats: {
+    count: string;
+    time: string;
+  };
+  backgroundColor: string;
+  backgroundImage?: string;
+  backgroundAnimation?: string;
+  textColor: string;
+  secondaryTextColor: string;
+  media: {
+    type: string;
+    url: string;
+  };
+}
+
+const playlist: Playlist = data.find(
+  (playlist) => playlist.id === Astro.params.id || data[0]
+)!;
+
+const {
+  // title,
+  // description,
+  // stats,
+  // user,
+  backgroundColor,
+  backgroundImage,
+  backgroundAnimation,
+  // media,
+  textColor,
+  secondaryTextColor,
+} = playlist;
+---
+
+<main
+  class="playlist-container with-transition"
+  style={`
+  --backgroundColor: ${backgroundColor};
+  --textColor: ${textColor};
+  --backgroundImage: ${backgroundImage ? `url('${backgroundImage}')` : 'none'};
+  --secondaryTextColor: ${secondaryTextColor};
+`}
+>
+  <header>
+    {
+      backgroundAnimation === 'floatingSquares' ? (
+        <FloatingSquares />
+      ) : backgroundAnimation === 'purpleVideo' ? (
+        <BackgroundVideo />
+      ) : (
+        <div class="solid-background playlist-background" />
+      )
+    }
+  </header>
+  xiao
+</main>
+
+<style is:inline>
+  .playlist-container {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 600px;
+  }
+
+  .playlist-container header {
+    color: var(--textColor);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .playlist-container .solid-background {
+    background: var(--backgroundColor);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    background-image: var(--backgroundImage);
+    background-repeat: repeat-y;
+    background-size: contain;
+  }
+
+  .playlist-container h1 {
+    margin: 10px 0 15px;
+    font-size: 3rem;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .playlist-container p {
+    text-align: center;
+    max-width: 360px;
+    line-height: 1.6;
+    color: var(--secondaryTextColor);
+    z-index: 1;
+  }
+</style>

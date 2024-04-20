@@ -1,0 +1,17 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PlaylistFragment from '../fragments/playlist/[id].astro';
+import data from '../../data.json';
+
+export function getStaticPaths() {
+  return data.map((playlist) => ({
+    params: { id: playlist.id },
+  }));
+}
+
+const id = Astro.params.id;
+---
+
+<Layout title="Playlist Details">
+  <PlaylistFragment />
+</Layout>
