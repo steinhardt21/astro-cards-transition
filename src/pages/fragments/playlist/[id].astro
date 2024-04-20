@@ -4,6 +4,7 @@ import CardStats from '../../../components/CardStats.astro';
 import FloatingSquares from '../../../components/FloatingSquares.astro';
 import PlaylistHeader from '../../../components/PlaylistHeader.astro';
 import PlaylistMedia from '../../../components/PlaylistMedia.astro';
+import PlaylistDetails from '../../../components/PlaylistDetails.astro';
 import data from '../../../data.json';
 
 export function getStaticPaths() {
@@ -80,6 +81,7 @@ const {
     <p class="playlist-description">{description}</p>
     <PlaylistMedia title={title} media={media} />
   </header>
+  <PlaylistDetails />
 </main>
 
 <style is:inline>
