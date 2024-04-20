@@ -1,0 +1,76 @@
+---
+import PlayerControl from './PlayerControl.astro';
+
+export interface Props {
+  backgroundColor: string;
+  title: string;
+  media: {
+    type: string;
+    url: string;
+    width: number;
+    height: number;
+  };
+}
+
+const { title, media } = Astro.props;
+---
+
+<div
+  class="card-media"
+  style={`
+  --marginTop: ${media.type === 'image' ? '20px' : '0'};
+`}
+>
+  {
+    media.type === 'image' ? (
+      <img
+        class="playlist-image"
+        src={media.url}
+        alt={title}
+        width={media.width}
+        height={media.height}
+      />
+    ) : (
+      <div data-persist-container="true">
+        <video
+          loop
+          muted
+          autoplay
+          playsinline
+          class="playlist-image"
+          data-persist="true"
+          width={media.width}
+          height={media.height}
+        >
+          <source src={media.url} type="video/mp4" />
+        </video>
+      </div>
+    )
+  }
+  <PlayerControl />
+</div>
+
+<style is:inline>
+  .card-media {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: var(--marginTop);
+    width: 100%;
+  }
+
+  .card-media .card-media-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to top, var(--backgroundColor), transparent);
+    border-radius: 2rem;
+  }
+
+  .card-media img {
+    display: block;
+    max-height: 360px;
+  }
+</style>

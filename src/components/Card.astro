@@ -2,6 +2,8 @@
 import BackgroundVideo from './BackgroundVideo.astro';
 import CardHeader from './CardHeader.astro';
 import FloatingSquares from './FloatingSquares.astro';
+import CardStats from './CardStats.astro';
+import CardMedia from './CardMedia.astro';
 
 export interface Props {
   id: string;
@@ -11,6 +13,7 @@ export interface Props {
     date: string;
     avatar: string;
   };
+  description: string;
   stats: {
     count: string;
     time: string;
@@ -23,18 +26,23 @@ export interface Props {
   media: {
     type: string;
     url: string;
+
+    width: number;
+    height: number;
   };
 }
 
 const {
   id,
   user,
+  stats,
   backgroundColor,
   textColor,
   backgroundImage,
   secondaryTextColor,
   backgroundAnimation,
   title,
+  media,
 } = Astro.props;
 ---
 
@@ -59,6 +67,8 @@ const {
   }
   <CardHeader {...user} />
   <h2 class="playlist-title">{title}</h2>
+  <CardStats {...stats} />
+  <CardMedia backgroundColor={backgroundColor} title={title} media={media} />
 </a>
 
 <style>
